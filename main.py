@@ -2,6 +2,7 @@ import boto3
 
 
 def listInstance():
+    
     print("list instance")
 
 
@@ -44,13 +45,15 @@ def main():
         print("  5. stop instance                6. create instance        \n")
         print("  7. reboot instance              8. list images            \n")
         print("                                 99. quit                   \n")
-        print("------------------------------------------------------------\n")
-        print("Enter an integer: ")
-
-        number = input()
-        if int(number) != number:
-            print("concentration!")
+        print("------------------------------------------------------------")
+        
+        try:
+            number = int(input("Enter an integer: "))
+        except ValueError:
+            print("concentrate!")
             break
+            
+
 
         if number == 1:
             listInstance()
