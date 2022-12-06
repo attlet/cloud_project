@@ -1,4 +1,5 @@
 import boto3
+import time
 
 access_key = ""
 secret_key = ""
@@ -18,7 +19,19 @@ def listInstance(ec2):
     
 
 def availableZone(ec2):
-    print("available zone")
+    print("Available zone... \n")
+    client = boto3.client('ec2',aws_access_key_id=access_key,
+                     aws_secret_access_key=secret_key, region_name=region)
+    
+    response = client.describe_availability_zones()
+    instances = response['AvailabilityZones']
+    
+    cnt = 0
+    for instance in instances:
+        print("[id]  " + instance['ZoneId'] + "  [region]  " + instance['RegionName'] + "  [zone]  " + instance['ZoneName'])
+        cnt += 1
+    
+    print("You have access to " + str(cnt) + " Zones")
 
 
 def startInstance(ec2):
@@ -29,18 +42,35 @@ def startInstance(ec2):
     
     if instance.state['Name'] == 'stopped':
         instance.start()
+        print("Successfully started instance " + Input_id)
+    else :
+        print("Instance aleady running")
+
     
-
-    print("Successfully started instance " + Input_id)
-    
-
-
 def availableRegion(ec2):
-    print("available Region")
-
+    print("Available Region...\n")
+    
+    client = boto3.client('ec2',aws_access_key_id=access_key,
+                     aws_secret_access_key=secret_key, region_name=region)
+    
+    response = client.describe_regions()
+    instances = response['Regions']
+    
+  
+    for instance in instances:
+        print("[region]  " + instance['RegionName'] + "  [endpoint]  " + instance['Endpoint'])
+        
 
 def stopInstance(ec2):
-    print("stop instance")
+    Input_id = input("Enter instance id : ")
+    instance = ec2.Instance(Input_id)
+    
+    if instance.state['Name'] == 'running':
+        instance.stop() 
+        print("Successfully stop instance " + Input_id)
+    else:
+        print("Instance aleady stopped")
+   
 
 
 def createInstance(ec2):
@@ -57,7 +87,16 @@ def createInstance(ec2):
 
 
 def rebootInstance(ec2):
-    print("reboot instance")
+    Input_id = input("Enter ami id: ")
+    instance = ec2.Instance(Input_id)
+    print("Rebooting..." + Input_id + "\n")
+    
+    if instance.state['Name'] == "running":
+        instance.reboot()
+        print("Successfully rebooted instance " + Input_id)
+    else:
+        print("Cannot reboot : stopped instance\n")
+        
 
 
 def listImage(ec2):
@@ -67,8 +106,27 @@ def listImage(ec2):
     for image in image_list:
         print("[ImageID]  " + image.id + "  [Name]  " + image.name + "  [Owner]  " + image.owner_id)
         
+def Condor_status(ec2):
+    print("Condor_status\n")
+    client = boto3.client('ssm',aws_access_key_id=access_key,
+                     aws_secret_access_key=secret_key, region_name=region)
+      
+    response = client.send_command(
+        InstanceIds=['i-00560e4f1c655604f'],
+        DocumentName='AWS-RunShellScript',
+        Parameters={'commands': ['condor_status']}
+    )
+    command_id = response['Command']['CommandId']
+    time.sleep(2)
+    output = client.get_command_invocation(
+      CommandId=command_id,
+      InstanceId='i-00560e4f1c655604f',
+    )
     
-
+    ret = output['StandardOutputContent']
+    print(ret)
+    
+    
 
 def main():
 
@@ -84,6 +142,7 @@ def main():
         print("  3. start instance               4. available regions      \n")
         print("  5. stop instance                6. create instance        \n")
         print("  7. reboot instance              8. list images            \n")
+        print("  9. condor_status                                          \n")
         print("                                 99. quit                   \n")
         print("------------------------------------------------------------")
 
@@ -109,6 +168,8 @@ def main():
             rebootInstance(ec2)
         elif number == 8:
             listImage(ec2)
+        elif number == 9:
+            Condor_status(ec2)
         elif number == 99:
             print("bye!\n")
             return
