@@ -18,7 +18,7 @@
 ### 실행중인 인스턴스 목록 확인 
 - 내 계정에서 실행되고 있는 인스턴스 목록 확인
   <br>
-  ![image](https://github.com/attlet/cloud_project/assets/62745451/e96253b2-f4e3-4f72-b412-ae772b87bd05)
+![image](https://github.com/attlet/cloud_project/assets/62745451/e96253b2-f4e3-4f72-b412-ae772b87bd05)
 
 
 ### 인스턴스 생성 및 삭제
