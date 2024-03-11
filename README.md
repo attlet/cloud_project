@@ -24,13 +24,13 @@
 ### 인스턴스 생성 및 삭제
 - 미리 생성되어 있는 ami를 통해 인스턴스 생성
 
-#### ami의 모습<br>
+- ami의 모습<br>
 ![image](https://github.com/attlet/cloud_project/assets/62745451/075f4775-7665-4d60-b79f-3187b960ca9d)
 
-#### 인스턴스를 생성한 모습<br>
+- 인스턴스를 생성한 모습<br>
 ![image](https://github.com/attlet/cloud_project/assets/62745451/14985243-f569-4916-8cba-1683076ccf74)
 
-이 옵션을 실행 후 다시 인스턴스 목록을 확인하면 새로 실행되는 모습을 볼 수 있다.
+- 이 옵션을 실행 후 다시 인스턴스 목록을 확인하면 새로 실행되는 모습을 볼 수 있다.
 <br>
 ![image](https://github.com/attlet/cloud_project/assets/62745451/96ea9428-f888-419c-aed7-e4731106289b)
 
@@ -40,10 +40,10 @@
 - slave 인스턴스 생성 시, 실행되고 있는 master 노드에 조인이 되는 지 확인할 수 있다.
 - htcondor라는 HTC을 통해 작업을 유휴 컴퓨팅 자원 노드에 할당할 수 있다.
 
-####master노드에서 처음 확인한 condor_status <br>
+- master노드에서 처음 확인한 condor_status <br>
 ![image](https://github.com/attlet/cloud_project/assets/62745451/d60c5464-5b3f-4c54-89d4-36a8cbccdac3)
 
-####slave노드 새로 생성 후 master의 status <br>
+- slave노드 새로 생성 후 master의 status <br>
 ![image](https://github.com/attlet/cloud_project/assets/62745451/7375d8e7-82de-4ce3-bf77-115ec7d8edf4)
 
 ### 이미지 생성
