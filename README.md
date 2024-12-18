@@ -7,7 +7,7 @@
 
 ## 개발 
 
-- python boto3 api
+- python boto3 api 사용해서 개발
 
 
 ## 주요 기능
